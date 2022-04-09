@@ -1,0 +1,82 @@
+
+<p-dialog [(visible)]="viewProduitDialog" [style]="{width: '70vw'}"
+        header="Produit" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Produit">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Reference</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Reference"  [(ngModel)]="selectedProduit.reference"
+                                           id="1" [(ngModel)]="selectedProduit.reference"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">Libelle</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Libelle"  [(ngModel)]="selectedProduit.libelle"
+                                           id="2" [(ngModel)]="selectedProduit.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">Categorie produit</label>
+                                    <p-dropdown [options]="categorieProduits" [(ngModel)]="selectedProduit.categorieProduitVo"
+                                            id="3" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Categorie produit">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="4">Archive</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="4"  [disabled]="true" [(ngModel)]="selectedProduit.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="5">Date archivage</label>
+                                    <p-calendar id="5" [disabled]="true"
+                                                placeholder="Date archivage"  [(ngModel)]="selectedProduit.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-categorie-produit-create-admin></app-categorie-produit-create-admin>
+
+
+
+</p-dialog>
+
+
+

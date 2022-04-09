@@ -1,0 +1,88 @@
+
+<p-dialog [(visible)]="viewCommandeItemDialog" [style]="{width: '70vw'}"
+        header="Commande item" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Commande item">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Produit</label>
+                                    <p-dropdown [options]="produits" [(ngModel)]="selectedCommandeItem.produitVo"
+                                            id="1" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="reference"
+                                            placeholder="Produit">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">Prix</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="2" [disabled]="true"
+                                                   placeholder="Prix"  [(ngModel)]="selectedCommandeItem.prix"
+                                            [(ngModel)]="selectedCommandeItem.prix"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">Quantite</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="3" [disabled]="true"
+                                                   placeholder="Quantite"  [(ngModel)]="selectedCommandeItem.quantite"
+                                            [(ngModel)]="selectedCommandeItem.quantite"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="4">Commande</label>
+                                    <p-dropdown [options]="commandes" [(ngModel)]="selectedCommandeItem.commandeVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="reference"
+                                            placeholder="Commande">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="5">Archive</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="5"  [disabled]="true" [(ngModel)]="selectedCommandeItem.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="6">Date archivage</label>
+                                    <p-calendar id="6" [disabled]="true"
+                                                placeholder="Date archivage"  [(ngModel)]="selectedCommandeItem.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-produit-create-admin></app-produit-create-admin>
+            <app-commande-create-admin></app-commande-create-admin>
+
+
+
+</p-dialog>
+
+
+

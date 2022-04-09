@@ -1,0 +1,92 @@
+        <p-dialog [(visible)]="createCommandeItemDialog" [style]="{width: '70vw'}"
+                header="Commande item" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="Commande item">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">Produit</label>
+                                            <p-dropdown [options]="produits" [(ngModel)]="selectedCommandeItem.produitVo"
+                                                    id="1" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="reference"
+                                                    placeholder="Produit"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">Prix</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="2"
+                                                           placeholder="Prix"  [(ngModel)]="selectedCommandeItem.prix"
+                                                    [(ngModel)]="selectedCommandeItem.prix" autofocus  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="3">Quantite</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="3"
+                                                           placeholder="Quantite"  [(ngModel)]="selectedCommandeItem.quantite"
+                                                    [(ngModel)]="selectedCommandeItem.quantite" autofocus  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="4">Commande</label>
+                                            <p-dropdown [options]="commandes" [(ngModel)]="selectedCommandeItem.commandeVo"
+                                                    id="4" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="reference"
+                                                    placeholder="Commande"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="5">Archive</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="5"  [(ngModel)]="selectedCommandeItem.archive"></p-inputSwitch>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="6">Date archivage</label>
+                                            <p-calendar id="6"
+                                                        placeholder="Date archivage"  [(ngModel)]="selectedCommandeItem.dateArchivage"
+                                                    dateFormat="{{dateFormat}}" autofocus  >
+                                                 >
+
+                                            </p-calendar>
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-produit-create-chercheur></app-produit-create-chercheur>
+                    <app-commande-create-chercheur></app-commande-create-chercheur>
+
+
+    </p-dialog>

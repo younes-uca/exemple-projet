@@ -1,0 +1,238 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreatePaiement('paiement')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text"  [(ngModel)]="searchPaiement.reference">
+                                    <label for="1">Reference</label>
+                                </span>
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchPaiement.datePaiementMin"
+                                    id="2-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="2-1">Date paiement Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchPaiement.datePaiementMax"
+                                    id="2-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="2-2">Date paiement Max</label>
+                        </span>
+
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="commandes" [(ngModel)]="searchPaiement.commandeVo"
+                                        id="4"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="reference">
+                                </p-dropdown>
+                                <label for="4">Commande</label>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="5" [options]="yesno" [(ngModel)]="searchPaiement.archive"
+                                            [filter]="false" [showClear]="true"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="5">Archive</label>
+                                </span>
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchPaiement.dateArchivageMin"
+                                    id="6-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-1">Date archivage Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchPaiement.dateArchivageMax"
+                                    id="6-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-2">Date archivage Max</label>
+                        </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="paiements" [columns]="cols" [rows]="4" [paginator]="true"
+                    [globalFilterFields]="['reference', 'datePaiement', 'montant', 'reference', 'archive', 'dateArchivage']" [(selection)]="selectedPaiement"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Paiements</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="reference">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Reference</span>
+                                        <p-sortIcon field="reference"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="datePaiement">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Date paiement</span>
+                                        <p-sortIcon field="datePaiement"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="montant">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Montant</span>
+                                        <p-sortIcon field="montant"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="commande">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Commande</span>
+                                        <p-sortIcon field="commande"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="archive">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Archive</span>
+                                        <p-sortIcon field="archive"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateArchivage">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Date archivage</span>
+                                        <p-sortIcon field="dateArchivage"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-paiement>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="paiement"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{paiement.reference}}</td>
+                            
+
+                            
+                                <td>{{paiement.datePaiement | date:'dd-M-yyyy' }}</td>
+                            
+
+                            
+                                 <td>{{paiement.montant}}</td>
+                            
+
+                            
+                                <td>{{paiement.commandeVo?.reference}}</td>
+                            
+
+                            
+                                <td><i *ngIf="paiement.archive" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!paiement.archive" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td>{{paiement.dateArchivage | date:'dd-M-yyyy' }}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editPaiement(paiement)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewPaiement(paiement)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                                    (click)="deletePaiement(paiement)"></button>
+                            <button *ngIf="!paiement.archive" pButton pRipple icon="pi pi-calendar-minus" class="p-button-rounded p-button-help p-mr-2"
+                                    (click)="archiverPaiement(paiement)"></button>
+
+                            <button *ngIf="paiement.archive" pButton pRipple icon="pi pi-calendar-plus" class="p-button-rounded p-button-secondary p-mr-2"
+                                    (click)="desarchiverPaiement(paiement)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicatePaiement(paiement)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale
+                        il {{paiements ? paiements.length == 1 ? 'y a' : 'y a' : 'y a' }} {{paiements ? paiements.length : 0 }} {{paiements ? paiements.length == 1 ? 'paiement' : 'paiements' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-paiement-create-admin></app-paiement-create-admin>
+        <app-paiement-edit-admin></app-paiement-edit-admin>
+        <app-paiement-view-admin></app-paiement-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

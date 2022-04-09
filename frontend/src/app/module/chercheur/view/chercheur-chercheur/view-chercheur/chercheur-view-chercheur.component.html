@@ -1,0 +1,194 @@
+
+<p-dialog [(visible)]="viewChercheurDialog" [style]="{width: '70vw'}"
+        header="Chercheur" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Chercheur">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="1">Numero matricule</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Numero matricule"  [(ngModel)]="selectedChercheur.numeroMatricule"
+                                           id="1" [(ngModel)]="selectedChercheur.numeroMatricule"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="2">Email principale</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Email principale"  [(ngModel)]="selectedChercheur.emailPrincipale"
+                                           id="2" [(ngModel)]="selectedChercheur.emailPrincipale"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="3">Resume</label>
+                                    <textarea id="3" pInputTextarea rows="5" cols="30"
+                                              placeholder="Resume"  [(ngModel)]="selectedChercheur.resume"
+                                    ></textarea>
+                                </div>
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="4">Formation en management</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="4"  [disabled]="true" [(ngModel)]="selectedChercheur.formationEnManagement"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="5">Credentials non expired</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="5"  [disabled]="true" [(ngModel)]="selectedChercheur.credentialsNonExpired"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="6">Enabled</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="6"  [disabled]="true" [(ngModel)]="selectedChercheur.enabled"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="7">Account non expired</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="7"  [disabled]="true" [(ngModel)]="selectedChercheur.accountNonExpired"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="8">Account non locked</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="8"  [disabled]="true" [(ngModel)]="selectedChercheur.accountNonLocked"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="9">Password changed</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="9"  [disabled]="true" [(ngModel)]="selectedChercheur.passwordChanged"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="10">Created at</label>
+                                    <p-calendar id="10" [disabled]="true"
+                                                placeholder="Created at"  [(ngModel)]="selectedChercheur.createdAt"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="11">Updated at</label>
+                                    <p-calendar id="11" [disabled]="true"
+                                                placeholder="Updated at"  [(ngModel)]="selectedChercheur.updatedAt"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="12">Username</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Username"  [(ngModel)]="selectedChercheur.username"
+                                           id="12" [(ngModel)]="selectedChercheur.username"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="13">Password</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Password"  [(ngModel)]="selectedChercheur.password"
+                                           id="13" [(ngModel)]="selectedChercheur.password"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="14">Prenom</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Prenom"  [(ngModel)]="selectedChercheur.prenom"
+                                           id="14" [(ngModel)]="selectedChercheur.prenom"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="15">Nom</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Nom"  [(ngModel)]="selectedChercheur.nom"
+                                           id="15" [(ngModel)]="selectedChercheur.nom"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="16">Equivalence avec panel erc</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Equivalence avec panel erc"  [(ngModel)]="selectedChercheur.equivalenceAvecPanelErc"
+                                           id="16" [(ngModel)]="selectedChercheur.equivalenceAvecPanelErc"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="17">Base horizon</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Base horizon"  [(ngModel)]="selectedChercheur.baseHorizon"
+                                           id="17" [(ngModel)]="selectedChercheur.baseHorizon"
+                                           autofocus>
+                                </div>
+
+
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+</p-dialog>
+
+
+

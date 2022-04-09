@@ -1,0 +1,86 @@
+
+<p-dialog [(visible)]="viewPaiementDialog" [style]="{width: '70vw'}"
+        header="Paiement" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Paiement">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Reference</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Reference"  [(ngModel)]="selectedPaiement.reference"
+                                           id="1" [(ngModel)]="selectedPaiement.reference"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">Date paiement</label>
+                                    <p-calendar id="2" [disabled]="true"
+                                                placeholder="Date paiement"  [(ngModel)]="selectedPaiement.datePaiement"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">Montant</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="3" [disabled]="true"
+                                                   placeholder="Montant"  [(ngModel)]="selectedPaiement.montant"
+                                            [(ngModel)]="selectedPaiement.montant"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="4">Commande</label>
+                                    <p-dropdown [options]="commandes" [(ngModel)]="selectedPaiement.commandeVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="reference"
+                                            placeholder="Commande">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="5">Archive</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="5"  [disabled]="true" [(ngModel)]="selectedPaiement.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="6">Date archivage</label>
+                                    <p-calendar id="6" [disabled]="true"
+                                                placeholder="Date archivage"  [(ngModel)]="selectedPaiement.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-commande-create-chercheur></app-commande-create-chercheur>
+
+
+
+</p-dialog>
+
+
+

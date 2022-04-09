@@ -1,0 +1,219 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateCommandeItem('commandeItem')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="produits" [(ngModel)]="searchCommandeItem.produitVo"
+                                        id="1"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="reference">
+                                </p-dropdown>
+                                <label for="1">Produit</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="commandes" [(ngModel)]="searchCommandeItem.commandeVo"
+                                        id="4"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="reference">
+                                </p-dropdown>
+                                <label for="4">Commande</label>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="5" [options]="yesno" [(ngModel)]="searchCommandeItem.archive"
+                                            [filter]="false" [showClear]="true"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="5">Archive</label>
+                                </span>
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchCommandeItem.dateArchivageMin"
+                                    id="6-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-1">Date archivage Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchCommandeItem.dateArchivageMax"
+                                    id="6-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-2">Date archivage Max</label>
+                        </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="commandeItems" [columns]="cols" [rows]="4" [paginator]="true"
+                    [globalFilterFields]="['reference', 'prix', 'quantite', 'reference', 'archive', 'dateArchivage']" [(selection)]="selectedCommandeItem"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Commande items</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="produit">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Produit</span>
+                                        <p-sortIcon field="produit"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="prix">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Prix</span>
+                                        <p-sortIcon field="prix"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="quantite">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Quantite</span>
+                                        <p-sortIcon field="quantite"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="commande">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Commande</span>
+                                        <p-sortIcon field="commande"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="archive">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Archive</span>
+                                        <p-sortIcon field="archive"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateArchivage">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Date archivage</span>
+                                        <p-sortIcon field="dateArchivage"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-commandeItem>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="commandeItem"></p-tableCheckbox>
+                        </td>
+                            
+                                <td>{{commandeItem.produitVo?.reference}}</td>
+                            
+
+                            
+                                 <td>{{commandeItem.prix}}</td>
+                            
+
+                            
+                                 <td>{{commandeItem.quantite}}</td>
+                            
+
+                            
+                                <td>{{commandeItem.commandeVo?.reference}}</td>
+                            
+
+                            
+                                <td><i *ngIf="commandeItem.archive" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!commandeItem.archive" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td>{{commandeItem.dateArchivage | date:'dd-M-yyyy' }}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editCommandeItem(commandeItem)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewCommandeItem(commandeItem)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                                    (click)="deleteCommandeItem(commandeItem)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateCommandeItem(commandeItem)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale
+                        il {{commandeItems ? commandeItems.length == 1 ? 'y a' : 'y a' : 'y a' }} {{commandeItems ? commandeItems.length : 0 }} {{commandeItems ? commandeItems.length == 1 ? 'commandeItem' : 'commandeItems' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-commande-item-create-chercheur></app-commande-item-create-chercheur>
+        <app-commande-item-edit-chercheur></app-commande-item-edit-chercheur>
+        <app-commande-item-view-chercheur></app-commande-item-view-chercheur>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

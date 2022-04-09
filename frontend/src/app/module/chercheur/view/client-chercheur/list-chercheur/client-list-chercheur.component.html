@@ -1,0 +1,223 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateClient('client')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text"  [(ngModel)]="searchClient.reference">
+                                    <label for="1">Reference</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2"
+                                           type="text"  [(ngModel)]="searchClient.cin">
+                                    <label for="2">Cin</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="3"
+                                           type="text"  [(ngModel)]="searchClient.nom">
+                                    <label for="3">Nom</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="4"
+                                           type="text"  [(ngModel)]="searchClient.prenom">
+                                    <label for="4">Prenom</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="5" [options]="yesno" [(ngModel)]="searchClient.archive"
+                                            [filter]="false" [showClear]="true"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="5">Archive</label>
+                                </span>
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchClient.dateArchivageMin"
+                                    id="6-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-1">Date archivage Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchClient.dateArchivageMax"
+                                    id="6-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-2">Date archivage Max</label>
+                        </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="clients" [columns]="cols" [rows]="4" [paginator]="true"
+                    [globalFilterFields]="['reference', 'cin', 'nom', 'prenom', 'archive', 'dateArchivage']" [(selection)]="selectedClient"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Clients</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="reference">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Reference</span>
+                                        <p-sortIcon field="reference"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="cin">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Cin</span>
+                                        <p-sortIcon field="cin"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="nom">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Nom</span>
+                                        <p-sortIcon field="nom"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="prenom">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Prenom</span>
+                                        <p-sortIcon field="prenom"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="archive">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Archive</span>
+                                        <p-sortIcon field="archive"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateArchivage">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Date archivage</span>
+                                        <p-sortIcon field="dateArchivage"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-client>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="client"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{client.reference}}</td>
+                            
+
+                            
+                                 <td>{{client.cin}}</td>
+                            
+
+                            
+                                 <td>{{client.nom}}</td>
+                            
+
+                            
+                                 <td>{{client.prenom}}</td>
+                            
+
+                            
+                                <td><i *ngIf="client.archive" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!client.archive" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td>{{client.dateArchivage | date:'dd-M-yyyy' }}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editClient(client)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewClient(client)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                                    (click)="deleteClient(client)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateClient(client)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale
+                        il {{clients ? clients.length == 1 ? 'y a' : 'y a' : 'y a' }} {{clients ? clients.length : 0 }} {{clients ? clients.length == 1 ? 'client' : 'clients' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-client-create-chercheur></app-client-create-chercheur>
+        <app-client-edit-chercheur></app-client-edit-chercheur>
+        <app-client-view-chercheur></app-client-view-chercheur>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

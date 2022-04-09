@@ -1,0 +1,90 @@
+
+<p-dialog [(visible)]="viewClientDialog" [style]="{width: '70vw'}"
+        header="Client" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Client">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Reference</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Reference"  [(ngModel)]="selectedClient.reference"
+                                           id="1" [(ngModel)]="selectedClient.reference"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">Cin</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Cin"  [(ngModel)]="selectedClient.cin"
+                                           id="2" [(ngModel)]="selectedClient.cin"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">Nom</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Nom"  [(ngModel)]="selectedClient.nom"
+                                           id="3" [(ngModel)]="selectedClient.nom"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="4">Prenom</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="Prenom"  [(ngModel)]="selectedClient.prenom"
+                                           id="4" [(ngModel)]="selectedClient.prenom"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="5">Archive</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="5"  [disabled]="true" [(ngModel)]="selectedClient.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="6">Date archivage</label>
+                                    <p-calendar id="6" [disabled]="true"
+                                                placeholder="Date archivage"  [(ngModel)]="selectedClient.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+</p-dialog>
+
+
+
