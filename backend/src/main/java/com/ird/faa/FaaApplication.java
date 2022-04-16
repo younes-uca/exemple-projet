@@ -33,7 +33,7 @@ return ctx;
 public CommandLineRunner demo(UserService userService, RoleService roleService
 ) {
 return (args) -> {
-if(false){
+if(true){
     Map<String,String> etats=new HashMap<>();
     etats.put("Initialisé","initialise");
     etats.put("En cours","encours");
