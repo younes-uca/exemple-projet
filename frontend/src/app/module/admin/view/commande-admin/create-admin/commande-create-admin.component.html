@@ -1,294 +1,292 @@
-        <p-dialog [(visible)]="createCommandeDialog" [style]="{width: '70vw'}"
-                header="Commande" [modal]="true"
-                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+<p-dialog [(visible)]="createCommandeDialog" [style]="{width: '70vw'}"
+          header="Commande" [modal]="true"
+          styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
 
 
-            <ng-template pTemplate="content" >
-                <p-tabView>
-                    <p-tabPanel header="Commande">
-                        <div class="p-grid">
-
-                                        <div class="p-field p-col-12 p-md-4">
-                                            <label for="1">Reference</label>
-                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
-                                                   placeholder="Reference"  [(ngModel)]="selectedCommande.reference"
-                                                   id="1" [(ngModel)]="selectedCommande.reference"
-                                                   autofocus  >
-                                            
-                                        </div>
-
-
-
-                                        <div class="p-field p-col-12 p-md-4">
-                                            <label for="2">Date commande</label>
-                                            <p-calendar id="2"
-                                                        placeholder="Date commande"  [(ngModel)]="selectedCommande.dateCommande"
-                                                    dateFormat="{{dateFormat}}" autofocus  >
-                                                 >
-
-                                            </p-calendar>
-                                        </div>
-
-                                        <div class="p-field p-col-12 p-md-4">
-                                            <label for="3">Total</label>
-                                            <p-inputNumber class="p-mb-2 p-mr-2" id="3"
-                                                           placeholder="Total"  [(ngModel)]="selectedCommande.total"
-                                                    [(ngModel)]="selectedCommande.total" autofocus  >
-                                            </p-inputNumber>
-                                            
-                                        </div>
-
-                                        <div class="p-field p-col-12 p-md-4">
-                                            <label for="4">Total paye</label>
-                                            <p-inputNumber class="p-mb-2 p-mr-2" id="4"
-                                                           placeholder="Total paye"  [(ngModel)]="selectedCommande.totalPaye"
-                                                    [(ngModel)]="selectedCommande.totalPaye" autofocus  >
-                                            </p-inputNumber>
-                                            
-                                        </div>
-
-                                        <div class="p-field p-col-12 p-md-4">
-                                            <label for="5">Client</label>
-                                            <p-dropdown [options]="clients" [(ngModel)]="selectedCommande.clientVo"
-                                                    id="5" [filter]="true" filterMatchMode="contains"
-                                                    [showClear]="true"
-                                                    optionLabel="cin"
-                                                    placeholder="Client"  >
-                                            </p-dropdown>
-                                            
-                                        </div>
-                                        <div class="p-field align-inputswitch p-col-12  p-md-4">
-                                            <div  class="label-inputswitch">
-                                                <label for="8">Archive</label>
-                                            </div>
-                                            <div class="input-switch">
-                                                <p-inputSwitch id="8"  [(ngModel)]="selectedCommande.archive"></p-inputSwitch>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="p-field p-col-12 p-md-4">
-                                            <label for="9">Date archivage</label>
-                                            <p-calendar id="9"
-                                                        placeholder="Date archivage"  [(ngModel)]="selectedCommande.dateArchivage"
-                                                    dateFormat="{{dateFormat}}" autofocus  >
-                                                 >
-
-                                            </p-calendar>
-                                        </div>
-
-                        </div>
-                    </p-tabPanel>
-                    <p-tabPanel header="Paiements">
-                                <div class="p-grid">
-                                    <div class="p-col">
-                                                <div class="p-field">
-                                                    <label for="1">Reference</label>
-                                                    <input class="p-mb-2 p-mr-2" type="text" pInputText
-                                                           placeholder="Reference"
-                                                           id="1" [(ngModel)]="selectedPaiements.reference"
-                                                           autofocus   >
-                                                    
-                                                </div>
-
-                                                <div class="p-field">
-                                                    <label for="2">Date paiement</label>
-                                                    <p-calendar id="2"
-                                                                placeholder="Date paiement"
-                                                            [(ngModel)]="selectedPaiements.datePaiement"
-                                                            dateFormat="{{dateFormat}}" [showIcon]="true"  ></p-calendar>
-                                                    
-                                                </div>
-                                                <div class="p-field">
-                                                    <label for="3">Montant</label>
-                                                    <p-inputNumber class="p-mb-2 p-mr-2" id="montant"
-                                                                   placeholder="Montant"  
-                                                            [(ngModel)]="selectedPaiements.montant"></p-inputNumber>
-                                                    
-                                                </div>
-
-                                                <div class="p-field  align-inputswitch">
-                                                    <div  class="label-inputswitch">
-                                                        <label for="5">Archive</label>
-                                                    </div>
-                                                    <div class="input-switch">
-                                                        <p-inputSwitch id="5"  [(ngModel)]="selectedPaiements.archive"></p-inputSwitch>
-                                                    </div>
-                                                </div>
-                                                <div class="p-field">
-                                                    <label for="6">Date archivage</label>
-                                                    <p-calendar id="6"
-                                                                placeholder="Date archivage"
-                                                            [(ngModel)]="selectedPaiements.dateArchivage"
-                                                            dateFormat="{{dateFormat}}" [showIcon]="true"  ></p-calendar>
-                                                    
-                                                </div>
-                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
-                                                label="OK" (click)="addPaiements()"
-                                        ></button>
-                                    </div>
-                                    <div class="p-col">
-                                        <div class="card">
-                                            <p-table [value]="selectedCommande.paiementsVo" [scrollable]="true"
-                                                    scrollHeight="200px">
-                                                <ng-template pTemplate="header">
-                                                    <tr>
-                                                                    <th>Reference</th>
-                                                                    <th>Date paiement</th>
-                                                                    <th>Montant</th>
-                                                                    <th>Archive</th>
-                                                                    <th>Date archivage</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </ng-template>
-                                                <ng-template pTemplate="body" let-p>
-                                                    <tr>
-                                                                    <td>{{p.reference}}</td>
-
-                                                                    <td>{{p.datePaiement | date: dateFormatColumn}}</td>
-
-                                                                    <td>{{p.montant}}</td>
-
-                                                                    <td><i *ngIf="p.archive" class="pi pi-check checked-toogle"></i>
-                                                                        <i *ngIf="!p.archive" class="pi pi-times unchecked-toogle"></i>
-                                                                    </td>
-
-                                                                    <td>{{p.dateArchivage | date: dateFormatColumn}}</td>
-
-                                                        <td>
-                                                            <button (click)="deletePaiements(p)" pButton type="button"
-                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                </ng-template>
-                                            </p-table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </p-tabPanel>
-
-                    <p-tabPanel header="Commande items">
-                                <div class="p-grid">
-                                    <div class="p-col">
-                                                <div class="p-grid">
-                                                    <div class="p-col-11 p-field">
-                                                        <label>Produit</label>
-                                                        <p-dropdown [options]="produits" [(ngModel)]="selectedCommandeItems.produitVo"
-                                                                id="1"  [filter]="true"
-                                                                filterMatchMode="contains" [showClear]="true"
-                                                                optionLabel="reference"
-                                                                placeholder="Produit"  
-                                                        >
-                                                        </p-dropdown>
-                                                        
-                                                    </div>
-                                                    <div class="p-col-1">
-                                                        <label></label>
-                                                        <button pButton pRipple type="button"
-                                                                icon="pi pi-plus"   (click)="openCreateproduit('produit')"
-                                                                class="p-button-success one-colonne-btn-success-align"></button>
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="p-field">
-                                                    <label for="2">Prix</label>
-                                                    <p-inputNumber class="p-mb-2 p-mr-2" id="prix"
-                                                                   placeholder="Prix"  
-                                                            [(ngModel)]="selectedCommandeItems.prix"></p-inputNumber>
-                                                    
-                                                </div>
-
-                                                <div class="p-field">
-                                                    <label for="3">Quantite</label>
-                                                    <p-inputNumber class="p-mb-2 p-mr-2" id="quantite"
-                                                                   placeholder="Quantite"  
-                                                            [(ngModel)]="selectedCommandeItems.quantite"></p-inputNumber>
-                                                    
-                                                </div>
-
-                                                <div class="p-field  align-inputswitch">
-                                                    <div  class="label-inputswitch">
-                                                        <label for="5">Archive</label>
-                                                    </div>
-                                                    <div class="input-switch">
-                                                        <p-inputSwitch id="5"  [(ngModel)]="selectedCommandeItems.archive"></p-inputSwitch>
-                                                    </div>
-                                                </div>
-                                                <div class="p-field">
-                                                    <label for="6">Date archivage</label>
-                                                    <p-calendar id="6"
-                                                                placeholder="Date archivage"
-                                                            [(ngModel)]="selectedCommandeItems.dateArchivage"
-                                                            dateFormat="{{dateFormat}}" [showIcon]="true"  ></p-calendar>
-                                                    
-                                                </div>
-                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
-                                                label="OK" (click)="addCommandeItems()"
-                                        ></button>
-                                    </div>
-                                    <div class="p-col">
-                                        <div class="card">
-                                            <p-table [value]="selectedCommande.commandeItemsVo" [scrollable]="true"
-                                                    scrollHeight="200px">
-                                                <ng-template pTemplate="header">
-                                                    <tr>
-                                                                    <th>Produit</th>
-                                                                    <th>Prix</th>
-                                                                    <th>Quantite</th>
-                                                                    <th>Archive</th>
-                                                                    <th>Date archivage</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </ng-template>
-                                                <ng-template pTemplate="body" let-p>
-                                                    <tr>
-                                                                <td>{{p.produitVo?.reference}}</td>
-                                                                    <td>{{p.prix}}</td>
-
-                                                                    <td>{{p.quantite}}</td>
-
-                                                                    <td><i *ngIf="p.archive" class="pi pi-check checked-toogle"></i>
-                                                                        <i *ngIf="!p.archive" class="pi pi-times unchecked-toogle"></i>
-                                                                    </td>
-
-                                                                    <td>{{p.dateArchivage | date: dateFormatColumn}}</td>
-
-                                                        <td>
-                                                            <button (click)="deleteCommandeItems(p)" pButton type="button"
-                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                </ng-template>
-                                            </p-table>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </p-tabPanel>
-
-
-                </p-tabView>
-
-            </ng-template>
-
-            <ng-template pTemplate="footer" >
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Commande">
                 <div class="p-grid">
-                        <div>
-                            <button pButton pRipple label="Annuler" icon="pi pi-times"
-                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="1">Reference</label>
+                        <input class="p-mb-2 p-mr-2" type="text" pInputText
+                               placeholder="Reference" [(ngModel)]="selectedCommande.reference"
+                               id="1" [(ngModel)]="selectedCommande.reference"
+                               autofocus>
+
+                    </div>
+
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="2">Date commande</label>
+                        <p-calendar id="2"
+                                    placeholder="Date commande" [(ngModel)]="selectedCommande.dateCommande"
+                                    dateFormat="{{dateFormat}}" autofocus>
+                            >
+
+                        </p-calendar>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="3">Total</label>
+                        <p-inputNumber class="p-mb-2 p-mr-2" id="3"
+                                       placeholder="Total" [(ngModel)]="selectedCommande.total"
+                                       [(ngModel)]="selectedCommande.total" autofocus>
+                        </p-inputNumber>
+
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="4">Total paye</label>
+                        <p-inputNumber class="p-mb-2 p-mr-2" id="4"
+                                       placeholder="Total paye" [(ngModel)]="selectedCommande.totalPaye"
+                                       [(ngModel)]="selectedCommande.totalPaye" autofocus>
+                        </p-inputNumber>
+
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="5">Client</label>
+                        <p-dropdown [options]="clients" [(ngModel)]="selectedCommande.clientVo"
+                                    id="5" [filter]="true" filterMatchMode="contains"
+                                    [showClear]="true"
+                                    optionLabel="cin"
+                                    placeholder="Client">
+                        </p-dropdown>
+
+                    </div>
+                    <div class="p-field align-inputswitch p-col-12  p-md-4">
+                        <div class="label-inputswitch">
+                            <label for="8">Archive</label>
                         </div>
-                    <div>
-                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                        <div class="input-switch">
+                            <p-inputSwitch id="8" [(ngModel)]="selectedCommande.archive"></p-inputSwitch>
+                        </div>
+                    </div>
+
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="9">Date archivage</label>
+                        <p-calendar id="9"
+                                    placeholder="Date archivage" [(ngModel)]="selectedCommande.dateArchivage"
+                                    dateFormat="{{dateFormat}}" autofocus>
+                            >
+
+                        </p-calendar>
+                    </div>
+
+                </div>
+            </p-tabPanel>
+            <p-tabPanel header="Paiements">
+                <div class="p-grid">
+                    <div class="p-col">
+                        <div class="p-field">
+                            <label for="1">Reference</label>
+                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                   placeholder="Reference"
+                                   id="1" [(ngModel)]="selectedPaiements.reference"
+                                   autofocus>
+
+                        </div>
+                        <div class="p-field">
+                            <label for="2">Date paiement</label>
+                            <p-calendar id="2"
+                                        placeholder="Date paiement"
+                                        [(ngModel)]="selectedPaiements.datePaiement"
+                                        dateFormat="{{dateFormat}}" [showIcon]="true"></p-calendar>
+
+                        </div>
+                        <div class="p-field">
+                            <label for="3">Montant</label>
+                            <p-inputNumber class="p-mb-2 p-mr-2" id="montant"
+                                           placeholder="Montant"
+                                           [(ngModel)]="selectedPaiements.montant"></p-inputNumber>
+
+                        </div>
+                        <div class="p-field  align-inputswitch">
+                            <div class="label-inputswitch">
+                                <label for="5">Archive</label>
+                            </div>
+                            <div class="input-switch">
+                                <p-inputSwitch id="5" [(ngModel)]="selectedPaiements.archive"></p-inputSwitch>
+                            </div>
+                        </div>
+                        <div class="p-field">
+                            <label for="6">Date archivage</label>
+                            <p-calendar id="6"
+                                        placeholder="Date archivage"
+                                        [(ngModel)]="selectedPaiements.dateArchivage"
+                                        dateFormat="{{dateFormat}}" [showIcon]="true"></p-calendar>
+
+                        </div>
+                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                label="OK" (click)="addPaiements()"
+                        ></button>
+                    </div>
+                    <div class="p-col">
+                        <div class="card">
+                            <p-table [value]="selectedCommande.paiementsVo" [scrollable]="true"
+                                     scrollHeight="200px">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Reference</th>
+                                        <th>Date paiement</th>
+                                        <th>Montant</th>
+                                        <th>Archive</th>
+                                        <th>Date archivage</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-p>
+                                    <tr>
+                                        <td>{{p.reference}}</td>
+
+                                        <td>{{p.datePaiement | date: dateFormatColumn}}</td>
+
+                                        <td>{{p.montant}}</td>
+
+                                        <td><i *ngIf="p.archive" class="pi pi-check checked-toogle"></i>
+                                            <i *ngIf="!p.archive" class="pi pi-times unchecked-toogle"></i>
+                                        </td>
+
+                                        <td>{{p.dateArchivage | date: dateFormatColumn}}</td>
+
+                                        <td>
+                                            <button (click)="deletePaiements(p)" pButton type="button"
+                                                    icon="pi pi-times" class="p-button-rounded p-button-danger">
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
                     </div>
                 </div>
-            </ng-template>
 
-                    <app-client-create-admin></app-client-create-admin>
+            </p-tabPanel>
 
-                            <app-produit-create-admin></app-produit-create-admin>
+            <p-tabPanel header="Commande items">
+                <div class="p-grid">
+                    <div class="p-col">
+                        <div class="p-grid">
+                            <div class="p-col-11 p-field">
+                                <label>Produit</label>
+                                <p-dropdown [options]="produits" [(ngModel)]="selectedCommandeItems.produitVo"
+                                            id="1" [filter]="true"
+                                            filterMatchMode="contains" [showClear]="true"
+                                            optionLabel="reference"
+                                            placeholder="Produit"
+                                >
+                                </p-dropdown>
 
-    </p-dialog>
+                            </div>
+                            <div class="p-col-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus" (click)="openCreateproduit('produit')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                        </div>
+
+                        <div class="p-field">
+                            <label for="2">Prix</label>
+                            <p-inputNumber class="p-mb-2 p-mr-2" id="prix"
+                                           placeholder="Prix"
+                                           [(ngModel)]="selectedCommandeItems.prix"></p-inputNumber>
+
+                        </div>
+
+                        <div class="p-field">
+                            <label for="3">Quantite</label>
+                            <p-inputNumber class="p-mb-2 p-mr-2" id="quantite"
+                                           placeholder="Quantite"
+                                           [(ngModel)]="selectedCommandeItems.quantite"></p-inputNumber>
+
+                        </div>
+
+                        <div class="p-field  align-inputswitch">
+                            <div class="label-inputswitch">
+                                <label for="5">Archive</label>
+                            </div>
+                            <div class="input-switch">
+                                <p-inputSwitch id="5" [(ngModel)]="selectedCommandeItems.archive"></p-inputSwitch>
+                            </div>
+                        </div>
+                        <div class="p-field">
+                            <label for="6">Date archivage</label>
+                            <p-calendar id="6"
+                                        placeholder="Date archivage"
+                                        [(ngModel)]="selectedCommandeItems.dateArchivage"
+                                        dateFormat="{{dateFormat}}" [showIcon]="true"></p-calendar>
+
+                        </div>
+                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                label="OK" (click)="addCommandeItems()"
+                        ></button>
+                    </div>
+                    <div class="p-col">
+                        <div class="card">
+                            <p-table [value]="selectedCommande.commandeItemsVo" [scrollable]="true"
+                                     scrollHeight="200px">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th>Prix</th>
+                                        <th>Quantite</th>
+                                        <th>Archive</th>
+                                        <th>Date archivage</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-p>
+                                    <tr>
+                                        <td>{{p.produitVo?.reference}}</td>
+                                        <td>{{p.prix}}</td>
+
+                                        <td>{{p.quantite}}</td>
+
+                                        <td><i *ngIf="p.archive" class="pi pi-check checked-toogle"></i>
+                                            <i *ngIf="!p.archive" class="pi pi-times unchecked-toogle"></i>
+                                        </td>
+
+                                        <td>{{p.dateArchivage | date: dateFormatColumn}}</td>
+
+                                        <td>
+                                            <button (click)="deleteCommandeItems(p)" pButton type="button"
+                                                    icon="pi pi-times" class="p-button-rounded p-button-danger">
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+
+            </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideCreateDialog()"></button>
+            </div>
+            <div>
+                <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px"
+                        (click)="save()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+    <app-client-create-admin></app-client-create-admin>
+
+    <app-produit-create-admin></app-produit-create-admin>
+
+</p-dialog>

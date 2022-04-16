@@ -48,7 +48,7 @@ private EntityManager entityManager;
 @Override
 public List<Commande> findAll(){
     String query = "SELECT o FROM Commande o where 1=1 ";
-    query+= " AND o.archive != true";
+
     return entityManager.createQuery(query).getResultList();
 }
 

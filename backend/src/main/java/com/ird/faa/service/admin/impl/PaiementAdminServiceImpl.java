@@ -38,7 +38,7 @@ private EntityManager entityManager;
 @Override
 public List<Paiement> findAll(){
     String query = "SELECT o FROM Paiement o where 1=1 ";
-    query+= " AND o.archive != true";
+
     return entityManager.createQuery(query).getResultList();
 }
 

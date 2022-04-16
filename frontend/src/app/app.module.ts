@@ -134,6 +134,8 @@ import {ChercheurModule} from './module/chercheur/chercheur.module';
 import {ChercheurRoutingModule} from './module/chercheur/chercheur-routing.module';
 import {AdminModule} from './module/admin/admin.module';
 import {AdminRoutingModule} from './module/admin/admin-routing.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 @NgModule({
   imports: [
     ButtonModule,
@@ -161,6 +163,12 @@ import {AdminRoutingModule} from './module/admin/admin-routing.module';
     ChercheurRoutingModule,
     AdminModule,
     AdminRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   declarations: [
     AppComponent,
